@@ -6,32 +6,30 @@ let posY = 48.0;
 const gravity = 0.2;
 let velocity = 0;
 let colliding = false;
-let gap = 150;
+let gap = window.innerHeight*0.21;
 let pipesArray = [];
-let pipeX = [window.innerWidth * 0.8, window.innerWidth * 1.1, window.innerWidth * 1.4, window.innerWidth*1.7];
+let pipeX = [window.innerWidth * 0.8, window.innerWidth * 1.1, window.innerWidth * 1.4, window.innerWidth * 1.7];
 let score = 0;
 let gameRunning = false;
 let jumpMag = -2;
-let movSpeed = window.innerWidth/200;
-let fflag=false;
-let pipeGap=0.3;
-let pipeCount=5;
-let gameFinished=false;
+let movSpeed = window.innerWidth / 200;
+let fflag = false;
+let pipeGap = 0.3;
+let pipeCount = 5;
+let gameFinished = false;
 
 document.addEventListener("DOMContentLoaded", (e) => {
 
 
     //generating the pipes based on screenwidth
-    let p=0.8;
-    if(window.innerWidth>1000)
-        {pipeGap=0.2;pipeCount=7}
-    for(let i=0;i<pipeCount;i++)
-    {
-        generatePipes(window.innerWidth*p + "px")
-        pipeX[i]=window.innerWidth*p;
-        p+=pipeGap;
+    let p = 0.8;
+    if (window.innerWidth > 1000) { pipeGap = 0.2; pipeCount = 7 }
+    for (let i = 0; i < pipeCount; i++) {
+        generatePipes(window.innerWidth * p + "px")
+        pipeX[i] = window.innerWidth * p;
+        p += pipeGap;
     }
-    
+
     //gameLoop
     setInterval(() => {
         if (gameRunning) {
@@ -46,7 +44,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
             if (colliding) {
                 gameOver();
                 gameRunning = false;
-                gameFinished=true;
+                gameFinished = true;
             }
 
             movePipes();
@@ -56,27 +54,22 @@ document.addEventListener("DOMContentLoaded", (e) => {
             if (chkCollisions()) {
                 gameOver();
                 gameRunning = false;
-                gameFinished=true;
+                gameFinished = true;
             }
             //making game progressively difficult
-            if(score%5==0)
-            {
-                if(fflag)
-                {   
-                    if(jumpMag>-3.5) 
-                        jumpMag-=0.15;
-                    movSpeed+=1;
-                    fflag=false;
+            if (score % 5 == 0) {
+                if (fflag) {
+                    if (jumpMag > -3.5)
+                        jumpMag -= 0.15;
+                    movSpeed += 1;
+                    fflag = false;
                 }
             }
-            else
-            {
-                fflag=true;
+            else {
+                fflag = true;
             }
         }
     }, 25);
-
-
 
 
 
@@ -91,11 +84,22 @@ document.addEventListener("DOMContentLoaded", (e) => {
             console.log("asd");
         }
     })
+
+    document.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        if (!gameFinished) {
+            velocity = jumpMag;
+            gameRunning = true;
+        }
+    })
 })
 
-function scoreUpdate()
-{
+function scoreUpdate() {
     scoreDiv.innerText = `Score : ${score}`;
+}
+
+function isMobile() {
+    return window.matchMedia("(pointer: coarse)").matches;
 }
 
 function gameOver() {
@@ -107,7 +111,8 @@ function gameOver() {
     retext.innerText = "Press R to play Again";
     text.innerText = "Game Over!!!";
     gameOver.appendChild(text);
-    gameOver.appendChild(retext);
+    if(isMobile())
+        gameOver.appendChild(retext);
     container.appendChild(gameOver);
 }
 
@@ -138,16 +143,15 @@ function movePipes() {
 
     let flag = false;
     for (let i = 0; i < pipesArray.length; i++) {
-        if (pipeX[i] >= -100) 
-            {
-                pipeX[i] -= movSpeed; 
-                flag = false;
-            }
+        if (pipeX[i] >= -100) {
+            pipeX[i] -= movSpeed;
+            flag = false;
+        }
         else {
-            pipeX[i] = window.innerWidth*1.3;
+            pipeX[i] = window.innerWidth * 1.3;
             flag = true;
         }
-        if (pipeX[i] <= window.innerWidth*0.8/2 + movSpeed/2 && pipeX[i]>window.innerWidth*0.8/2 - movSpeed/2) {
+        if (pipeX[i] <= window.innerWidth * 0.8 / 2 + movSpeed / 2 && pipeX[i] > window.innerWidth * 0.8 / 2 - movSpeed / 2) {
             score++;
             console.log(score);
         }
