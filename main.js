@@ -6,7 +6,7 @@ let posY = 48.0;
 const gravity = 0.2;
 let velocity = 0;
 let colliding = false;
-let gap = window.innerHeight*0.21;
+let gap = window.innerHeight * 0.3;
 let pipesArray = [];
 let pipeX = [window.innerWidth * 0.8, window.innerWidth * 1.1, window.innerWidth * 1.4, window.innerWidth * 1.7];
 let score = 0;
@@ -91,6 +91,9 @@ document.addEventListener("DOMContentLoaded", (e) => {
             velocity = jumpMag;
             gameRunning = true;
         }
+        else {
+            location.reload();
+        }
     })
 })
 
@@ -111,7 +114,7 @@ function gameOver() {
     retext.innerText = "Press R to play Again";
     text.innerText = "Game Over!!!";
     gameOver.appendChild(text);
-    if(isMobile())
+    if (!isMobile())
         gameOver.appendChild(retext);
     container.appendChild(gameOver);
 }
@@ -132,8 +135,20 @@ function generatePipes(left) {
 
     pipeBot.style.left = left;
     pipeTop.style.left = left;
-    const upperHeight = Math.floor(Math.random() * (280 - 50 + 1)) + 50;
-    const lowerHeight = 500 - upperHeight - gap;
+    let randomFactor=0;
+    if (window.innerHeight > window.innerWidth) {
+        gap = window.innerHeight * 0.2;
+        randomFactor = Math.random() * (0.7);
+
+    }
+    else
+        {
+            gap = window.innerHeight * 0.3;
+            randomFactor = Math.random() * (0.6);
+        }
+    const upperHeight = Math.max(window.innerHeight * 0.1, window.innerHeight * randomFactor)
+    const lowerHeight = window.innerHeight * 0.9 - upperHeight - gap;
+
     pipeTop.style.height = upperHeight + "px";
     pipeBot.style.height = lowerHeight + "px";
 
@@ -148,7 +163,8 @@ function movePipes() {
             flag = false;
         }
         else {
-            pipeX[i] = window.innerWidth * 1.3;
+            pipeX[i] = window.innerWidth * 1.3; //move to the right of the screen
+            pipesArray[i].children[0].remove();
             flag = true;
         }
         if (pipeX[i] <= window.innerWidth * 0.8 / 2 + movSpeed / 2 && pipeX[i] > window.innerWidth * 0.8 / 2 - movSpeed / 2) {
