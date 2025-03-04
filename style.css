@@ -1,0 +1,109 @@
+
+.bird
+{
+    position: absolute;
+    left: 47%;
+    top: 48%;
+    width: 4vw;
+    height: 4vw;
+    max-width: 40px;
+    max-height: 40px;
+    border-radius: 100%;
+    background: yellow;
+    padding: 0px;
+    border: 2px solid yellowgreen;
+}
+
+
+.container
+{
+    margin: auto;
+    margin-top: 2%;
+    border: 5px solid black;
+    width: 90vw;
+    height: 90vh;
+    background: aquamarine;
+    position: relative;
+    overflow: hidden ;
+}
+
+.gameOverContainer
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-55%,-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid black;
+    width: 60%;  
+    height: 60%;
+    background: rgba(255, 0, 0, 0.594);
+    color: yellow;
+    overflow: hidden;
+    border-radius: 10%;
+}
+h3
+{
+    margin-top: -1.2em;
+    color: bisque;
+}
+
+.pipe-set
+{
+}
+
+.pipe
+{
+    position: absolute;
+    width: 7vw;
+    max-width: 50px;
+    height: 20vh;
+    background: green;
+    padding: 0%;
+}
+
+.upper
+{
+    top: 0;
+}
+
+.lower
+{
+    bottom: 0;
+}
+
+html, body {
+    overflow: hidden; /* Prevent scrolling */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed; /* Kee ps the viewport fixed */
+}
+
+
+.score
+{
+    position: relative;
+    padding: 1px;
+    width: 130px;
+    z-index: 100;
+    border: 2px solid rgb(255, 0, 0);
+    border-radius: 10%;
+    background: rgba(255, 255, 0, 0.498);
+    justify-content: center;
+    display: flex;
+    line-height: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    
+}
+
+h2
+{
+    color:red;
+}
