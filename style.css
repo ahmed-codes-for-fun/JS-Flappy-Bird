@@ -44,7 +44,10 @@
     color: yellow;
     overflow: hidden;
     border-radius: 10%;
+    font-size: 3.5vw;
+    
 }
+
 h3
 {
     margin-top: -1.2em;
@@ -100,6 +103,7 @@ html, body {
     margin-left: auto;
     margin-right: auto;
     margin-top: 5px;
+    
     
 }
 
